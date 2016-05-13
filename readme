@@ -1,5 +1,0 @@
-task: 
-write the jquery plugin called in tehe script part, that validates the form after the given rules in the data-* fields :wink:
-- output error messages, for missing values. 
-- feel free to alter html to alter some labels etc (edited) 
-- and prevent sending the form in case of errors
