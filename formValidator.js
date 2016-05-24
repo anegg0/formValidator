@@ -1,18 +1,16 @@
 (function ( $ ) {
 $.fn.validator = function(){
-
 jQuery(document).ready(function() {
-
 $button = $("button");
-
 var clickConfirmed = function(e) {
-	e.preventDefault();
+e.preventDefault();
 $('#myForm').find('input').each( function(){
 var dataValidationType = $(this).attr('data-validate');
 var minLength = $(this).attr('minLength');
 var maxLength = $(this).attr('data-validate-max');
 var required = $(this).attr('data-requirement');
 var formPassCriteria = true;
+     
      if(required == 'required') {
 				 switch (dataValidationType) {
 				    case 'charcount':
@@ -26,6 +24,7 @@ var formPassCriteria = true;
 				        console.log(dataValidationType);
 				        break;
 												} 
+			console.log('ok, je fais ça');	
 	 }else{
 	 	console.log('eh beh ta gueule');
 	 }
