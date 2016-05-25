@@ -9,13 +9,29 @@ var dataValidationType = $(this).attr('data-validate');
 var minLength = $(this).attr('minLength');
 var maxLength = $(this).attr('data-validate-max');
 var required = $(this).attr('data-requirement');
+var fieldContent = $(this).val();
 var formPassCriteria = true;
-     
      if(required == 'required') {
 				 switch (dataValidationType) {
 				    case 'charcount':
-				//apply the regular routine
-						console.log('apply the regular routine');
+				    
+			var filter = /^[A-Za-z/]{2,}$/;
+
+//if submission meets criteria > customize .alert and
+ 
+			 if (!filter.test(fieldContent)) {
+			 	   window.setTimeout(function() {
+      $(".alert").fadeTo(1500, 0).slideUp(500, function(){
+        $(this).remove(); 
+      });
+    }, 4000);
+			 var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your first name should be AT LEAST 2 characters long...No?</div>';
+			 	$('#form-group').prepend(alert);
+			 	formPassCriteria = false;
+				return false;
+				}else{
+				formPassCriteria = true;
+				}
 				     break;
 				    case 'numeric':
 				       console.log(dataValidationType);
@@ -23,10 +39,9 @@ var formPassCriteria = true;
 				    case 'wordcount':
 				        console.log(dataValidationType);
 				        break;
-												} 
-			console.log('ok, je fais ça');	
+				} 	
 	 }else{
-	 	console.log('eh beh ta gueule');
+	 	return;
 	 }
 
 }
