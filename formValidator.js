@@ -16,14 +16,14 @@ if (dataValidationType == 'wordcount'){
 }
 var minLength = $(this).attr('minLength');
 var warningMinLength = "AT LEAST"+" "+minLength+" "+dataName;
-if (minLength === undefined) {warningMinLength = "";}
+if (minLength === undefined) {warningMinLength = ""; minLength="";}
 var maxLength = $(this).attr('data-validate-max');
 var warningMaxLength = "and no longer than "+maxLength+" "+dataName;
-if (maxLength === undefined) {warningMaxLength = "";}
+if (maxLength === undefined) {warningMaxLength = ""; maxLength="";}
 var required = $(this).attr('data-requirement');
 var fieldContent = $(this).val();
 var fieldName = $(this).attr('name');
-var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your '+ fieldName+" "+"should be"+" "+dataName+" "+warningMinLength+" "+ warningMaxLength+'.</div>';
+var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your '+ fieldName+" "+"should be"+" "+warningMinLength+" "+ warningMaxLength+'.</div>';
 var failsTestWarning = function(alert){window.setTimeout(function() {
       $(".alert").fadeTo(1500, 0).slideUp(500, function(){
         $(this).remove(); 
