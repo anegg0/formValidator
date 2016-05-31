@@ -1,0 +1,56 @@
+---------------------
+Readme
+---------------------
+
+https://gist.github.com/jxson/1784669
+
+formValidator is a simple jQuery plugin that helps you filter online forms input. formValidator allows your to decide on the input's length and format, if user's inputs doesn't match the decided format, form won't be submitted and the user gets an error message explaining why submission has been prevented.d  
+
+Code Example
+
+//Simply add formValidator classes to your form fields:
+
+<input class="form-control" type="text" id="firstname" name="first name" placeholder="first name"  data-validate="charcount" minlength="2" data-requirement="required">
+
+
+Motivation
+
+Freeing the universe from badly formatted form entries.
+
+Installation
+
+Point a link from the file hosting your form to formValidator.js and add the formValidator classes to your <input> tags.
+
+
+API Reference:
+
+Configuration of formValidator is done using four classes, each
+
+data-validate=
+defines if the input is expected to be filtered by number of any characters, number of numeric input or number of words. 
+data-validate="charcount" > filtered by number of any characters
+data-validate="wordcount" > filtered by number of words
+data-validate="number" > filtered by number of numeric input
+
+data-requirement=
+required: form won't be submitted unless the input is correct.
+not required: formValidator won't filter the input
+defines the type 
+minlength=
+add any number, user input will have to be at least as long as that number
+maxlength=
+add any number, user input will have to not be longer than that number
+
+
+Tests:
+
+Install formValidator in your project, then add formValidator classes to your <input> tags and 
+
+Contributors:
+
+Thomas Rödiger
+Gaël Blanchemain
+
+License:
+
+GNU

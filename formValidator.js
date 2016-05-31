@@ -6,22 +6,24 @@ var clickConfirmed = function(e) {
 e.preventDefault();
 $('#myForm').find('input').each( function(){
 var dataValidationType = $(this).attr('data-validate');
-var warningDataType = "";
+var dataName = "";
 if (dataValidationType == 'wordcount'){
-	warningDataType = "words";
+	dataName = "words";
+} else if (dataValidationType == 'charcount'){
+	dataName = "characters";
 } else {
-	warningDataType = "characters";
+	dataName = "numbers";
 }
 var minLength = $(this).attr('minLength');
-var warningMinLength = "AT LEAST"+" "+minLength+" "+warningDataType+" "+'long';
-if (minLength === undefined) {minLength = ""; warningMinLength = "";}
+var warningMinLength = "AT LEAST"+" "+minLength+" "+dataName;
+if (minLength === undefined) {warningMinLength = "";}
 var maxLength = $(this).attr('data-validate-max');
-var warningMaxLength = "and no longer than "+maxLength+" "+warningDataType;
-if (maxLength === undefined) {maxLength = ""; warningMaxLength = "";}
+var warningMaxLength = "and no longer than "+maxLength+" "+dataName;
+if (maxLength === undefined) {warningMaxLength = "";}
 var required = $(this).attr('data-requirement');
 var fieldContent = $(this).val();
 var fieldName = $(this).attr('name');
-var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your '+ fieldName+" "+"should be"+" "+" "+ warningMinLength+" "+ warningMaxLength+'.</div>';
+var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your '+ fieldName+" "+"should be"+" "+dataName+" "+warningMinLength+" "+ warningMaxLength+'.</div>';
 var failsTestWarning = function(alert){window.setTimeout(function() {
       $(".alert").fadeTo(1500, 0).slideUp(500, function(){
         $(this).remove(); 
@@ -43,7 +45,6 @@ if(required == 'required') {
 				}
 				     break;
 				    case 'numeric':
-				    //warningFieldType = "numbers only, ";
 				      filter = new RegExp("[\\d]{"+minLength+","+maxLength+"}");
 			 if (!filter.test(fieldContent)) {
 			 	failsTestWarning(alert);
