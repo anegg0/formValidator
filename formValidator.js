@@ -23,7 +23,7 @@ if (maxLength === undefined) {warningMaxLength = ""; maxLength="";}
 var required = $(this).attr('data-requirement');
 var fieldContent = $(this).val();
 var fieldName = $(this).attr('name');
-var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your '+ fieldName+" "+"should be"+" "+warningMinLength+" "+ warningMaxLength+'.</div>';
+var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your '+ fieldName+" "+"should be"+" "+warningMinLength+dataName+" "+ warningMaxLength+'.</div>';
 var failsTestWarning = function(alert){window.setTimeout(function() {
       $(".alert").fadeTo(1500, 0).slideUp(500, function(){
         $(this).remove(); 
@@ -71,6 +71,7 @@ if(required == 'required') {
 }
 //closes $('#myform').find('data-validate').each(
 );
+$button.bind('click', clickConfirmed);
 // closes var clickConfirmed = function(e) {
 };
 $button.bind('click', clickConfirmed);
