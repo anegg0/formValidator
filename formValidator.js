@@ -59,6 +59,11 @@
 
                             }
                         };
+                        var formSubmitter = function() {
+                                if (formPassCriteria = true) {
+                                    console.log("hé béh là, on soumet, quoi");
+                                }
+                            };
                         var numericFilter = function() {
                             if (dataValidationType === 'numeric') {
                                 filter = new RegExp("[\\d]{" + minLength + "," + maxLength + "}");
@@ -89,8 +94,6 @@
                             }
                         };
                         requiredFilter();
-
-
                     });
                 };
                 validator();
