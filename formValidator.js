@@ -3,34 +3,46 @@
         jQuery(document).ready(function() {
             $button = $("button");
             var clickConfirmed = function(e) {
-                e.preventDefault();
-                $('#myForm').find('input').each(function() {
-                        var dataValidationType = $(this).attr('data-validate');
-                        var dataName = "";
-                        if (dataValidationType == 'wordcount') {
-                            dataName = "words";
-                        } else if (dataValidationType == 'charcount') {
-                            dataName = "characters";
-                        } else {
-                            dataName = "numbers";
+                e.preventDefault(e);
+                var validator = function(element) {
+                    e.preventDefault(e);
+                    var formPassCriteria = true;
+                    $('#myForm').find('input').each(function() {
+                        if (formPassCriteria === false) {
+                            return false;
                         }
+                        var required = $(this).data('requirement');
+                        var dataValidationType = $(this).data('validate');
                         var minLength = $(this).attr('minLength');
-                        var warningMinLength = "AT LEAST" + " " + minLength + " " + dataName;
                         if (minLength === undefined) {
-                            warningMinLength = "";
                             minLength = "";
                         }
-                        var maxLength = $(this).attr('data-validate-max');
-                        var warningMaxLength = "and no longer than " + maxLength + " " + dataName;
+                        var maxLength = $(this).data('validate-max');
                         if (maxLength === undefined) {
-                            warningMaxLength = "";
                             maxLength = "";
                         }
-                        var required = $(this).attr('data-requirement');
                         var fieldContent = $(this).val();
                         var fieldName = $(this).attr('name');
-                        var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your ' + fieldName + " " + "should be" + " " + warningMinLength + dataName + " " + warningMaxLength + '.</div>';
-                        var failsTestWarning = function(alert) {
+                        var filter = "";
+
+                        var failsTestWarning = function() {
+                            var dataName = "";
+                            if (dataValidationType == 'wordcount') {
+                                dataName = "words";
+                            } else if (dataValidationType == 'charcount') {
+                                dataName = "characters";
+                            } else {
+                                dataName = "numbers";
+                            }
+                            var warningMinLength = "AT LEAST" + " " + minLength + " " + dataName;
+                            if (minLength === "") {
+                                warningMinLength = "";
+                            }
+                            var warningMaxLength = "and no longer than " + maxLength + " " + dataName;
+                            if (maxLength === "") {
+                                warningMaxLength = "";
+                            }
+                            var alert = '<div class="alert alert-warning alert-dismissible"></a>My friend, your ' + fieldName + " " + "should be" + " " + warningMinLength + " " + warningMaxLength + '.</div>';
                             window.setTimeout(function() {
                                 $(".alert").fadeTo(1500, 0).slideUp(500, function() {
                                     $(this).remove();
@@ -38,54 +50,61 @@
                             }, 4000);
                             $('#form-group').prepend(alert);
                         };
-                        var formPassCriteria = true;
-                        if (required == 'required') {
-                            switch (dataValidationType) {
-                                case 'charcount':
-                                    var filter = new RegExp("[\\w]{" + minLength + "," + maxLength + "}");
-                                    if (!filter.test(fieldContent)) {
-                                        failsTestWarning(alert);
-                                        formPassCriteria = false;
-                                        return false;
-                                    } else {
-                                        formPassCriteria = true;
-                                    }
-                                    break;
-                                case 'numeric':
-                                    filter = new RegExp("[\\d]{" + minLength + "," + maxLength + "}");
-                                    if (!filter.test(fieldContent)) {
-                                        failsTestWarning(alert);
-                                        formPassCriteria = false;
-                                        return false;
-                                    } else {
-                                        formPassCriteria = true;
-                                    }
-                                    break;
-                                case 'wordcount':
-                                    filter = new RegExp("^(?:\\b\\w+\\b[\\s\\r\\n]*){" + minLength + "," + maxLength + "}$");
-                                    if (!filter.test(fieldContent)) {
-                                        failsTestWarning(alert);
-                                        formPassCriteria = false;
-                                        return false;
-                                    } else {
-                                        formPassCriteria = true;
-                                    }
-                                    break;
+
+                        var contentFilter = function(filter) {
+                            if (!filter.test(fieldContent)) {
+                                failsTestWarning();
+                                formPassCriteria = false;
+                            } else {
+
                             }
-                        } else {
-                            return;
-                        }
-                    }
-                    //closes $('#myform').find('data-validate').each(
-                );
-                $button.bind('click', clickConfirmed);
-                // closes var clickConfirmed = function(e) {
+                        };
+                        var formSubmitter = function() {
+                            if (formPassCriteria = true) {
+                                console.log("hé béh là, on soumet, quoi");
+                            }
+                        };
+                        var numericFilter = function() {
+                            if (dataValidationType === 'numeric') {
+                                filter = new RegExp("[\\d]{" + minLength + "," + maxLength + "}");
+                                contentFilter(filter);
+                            }
+                        };
+                        var charcountFilter = function() {
+                            if (dataValidationType === 'charcount') {
+                                filter = new RegExp("[\\w]{" + minLength + "," + maxLength + "}");
+                                contentFilter(filter);
+                            } else {
+                                wordcountFilter();
+                            }
+                        };
+                        var wordcountFilter = function() {
+                            if (dataValidationType === 'wordcount') {
+                                filter = new RegExp("^(?:\\b\\w+\\b[\\s\\r\\n]*){" + minLength + "," + maxLength + "}$");
+                                contentFilter(filter);
+                            } else {
+                                numericFilter();
+                            }
+                        };
+                        var requiredFilter = function() {
+                            if (required === 'required') {
+                                charcountFilter();
+                            } else {
+                                return;
+                            }
+                        };
+                        requiredFilter();
+                    });
+                };
+                validator();
+                //closes var clickConfirmed = function(e) {
             };
-            // closes jQuery(document).ready(function() {
+            $button.bind('click', clickConfirmed);
+            //closes jQuery(document).ready(function() {
         });
-        //closes $.fn.validator = function(){ 
+        //closes $.fn.validator = function(){
     };
-    //closes immediately invoked jquery function
+    //closes (function($) {
 }(jQuery));
 //calls $.fn.validator
 $('#myForm').validator();
