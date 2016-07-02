@@ -6,8 +6,10 @@
                 e.preventDefault(e);
                 var validator = function(element) {
                     e.preventDefault(e);
+                    var $set = $('#myForm').find('input');
+                    var len = $set.length;
                     var formPassCriteria = true;
-                    $('#myForm').find('input').each(function() {
+                    $set.each(function(index, element) {
                         if (formPassCriteria === false) {
                             return false;
                         }
@@ -51,18 +53,24 @@
                             $('#form-group').prepend(alert);
                         };
 
+                        var itemCounter = function() {
+                            if (index == len - 1) {
+                                formSubmitter();
+                            }
+                        };
+
                         var contentFilter = function(filter) {
                             if (!filter.test(fieldContent)) {
                                 failsTestWarning();
                                 formPassCriteria = false;
                             } else {
+                                itemCounter();
 
                             }
                         };
                         var formSubmitter = function() {
-                            if (formPassCriteria = true) {
-                                console.log("hé béh là, on soumet, quoi");
-                            }
+                            console.log($('#myForm'));
+                            //$(this.submit());
                         };
                         var numericFilter = function() {
                             if (dataValidationType === 'numeric') {
