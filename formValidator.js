@@ -55,6 +55,7 @@
 
                         var itemCounter = function() {
                             if (index == len - 1) {
+
                                 formSubmitter();
                             }
                         };
@@ -98,6 +99,7 @@
                             if (required === 'required') {
                                 charcountFilter();
                             } else {
+                                itemCounter();
                                 return;
                             }
                         };
